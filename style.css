@@ -1154,7 +1154,7 @@ body {
    ============================================ */
 .footer-credit {
     background-color: var(--color-bg);
-    padding: 2rem 1rem 4rem 1rem;
+    padding: 1.5rem 1rem 2rem 1rem;
     text-align: center;
     border-top: 1px solid rgba(212, 168, 83, 0.2);
 }
