@@ -257,6 +257,24 @@ function launchPetalBurst() {
 // INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Fix for jumping 100vh on mobile browsers (due to address bar shrinking)
+    function fixMobileHeight() {
+        const vh = window.innerHeight;
+        const hero = document.getElementById('hero');
+        const curtain = document.getElementById('curtainOverlay');
+        
+        // Lock the height exactly in pixels so it doesn't recalculate on scroll
+        if (hero) hero.style.height = `${vh}px`;
+        if (curtain) curtain.style.height = `${vh}px`;
+    }
+    // Run immediately
+    fixMobileHeight();
+    // Only update on orientation change (not on scroll/resize which causes the jitter)
+    window.addEventListener('orientationchange', () => {
+        setTimeout(fixMobileHeight, 300);
+    });
+
     // Initialize sparkle particle system
     new SparkleParticleSystem('sparkleCanvas');
 
