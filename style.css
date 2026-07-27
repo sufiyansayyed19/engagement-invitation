@@ -1161,33 +1161,31 @@ body {
 
 .footer-credit p {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
-    color: rgba(253, 246, 237, 0.6);
-    letter-spacing: 1px;
+    font-size: 0.65rem;
+    color: rgba(253, 246, 237, 0.5);
+    letter-spacing: 2px;
     margin: 0;
+    line-height: 2.2;
+    text-transform: uppercase;
+}
+
+.footer-credit .by-text {
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    color: var(--color-gold);
+    font-style: italic;
+    text-transform: lowercase;
+    letter-spacing: 1px;
 }
 
 .footer-credit strong {
     font-family: var(--font-serif);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--color-gold);
     font-weight: 500;
-    letter-spacing: 1.5px;
-}
-
-.footer-credit .heart {
-    color: #e57373;
-    display: inline-block;
-    animation: heartBeat 1.5s ease-in-out infinite;
-    margin: 0 2px;
-}
-
-@keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.25); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.25); }
-    60% { transform: scale(1); }
+    letter-spacing: 2px;
+    display: block;
+    margin-top: -2px;
 }
 
 /* ============================================
