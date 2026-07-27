@@ -264,6 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const curtainOverlay = document.getElementById('curtainOverlay');
     const openRibbon = document.getElementById('openRibbon');
 
+    // Audio Elements
+    const bgMusic = document.getElementById('bgMusic');
+    const audioToggle = document.getElementById('audioToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    let isMusicPlaying = false;
+
     if (openRibbon && curtainOverlay) {
         openRibbon.addEventListener('click', () => {
             // Open curtains
@@ -272,10 +278,36 @@ document.addEventListener('DOMContentLoaded', () => {
             // Trigger flower petal burst
             launchPetalBurst();
 
+            // Play background music
+            if (bgMusic) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    if (audioToggle) {
+                        audioToggle.classList.add('visible');
+                    }
+                }).catch(e => {
+                    console.log("Audio autoplay prevented by browser", e);
+                });
+            }
+
             // Trigger entrance animations in the hero (delayed slightly)
             setTimeout(() => {
                 document.body.classList.add('animations-active');
             }, 600);
+        });
+    }
+
+    // Audio toggle button logic
+    if (audioToggle && bgMusic) {
+        audioToggle.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.add('muted');
+            } else {
+                bgMusic.play();
+                musicIcon.classList.remove('muted');
+            }
+            isMusicPlaying = !isMusicPlaying;
         });
     }
 

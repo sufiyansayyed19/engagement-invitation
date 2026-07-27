@@ -1105,6 +1105,51 @@ body {
 }
 
 /* ============================================
+   AUDIO TOGGLE BUTTON
+   ============================================ */
+.audio-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(30, 15, 13, 0.7);
+    border: 1px solid rgba(212, 168, 83, 0.4);
+    backdrop-filter: blur(5px);
+    color: var(--color-gold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.audio-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.audio-btn:hover {
+    transform: scale(1.1);
+    background: rgba(30, 15, 13, 0.9);
+    border-color: var(--color-gold);
+}
+
+.music-icon {
+    font-size: 1.2rem;
+}
+
+.music-icon.muted {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+/* ============================================
    ENTRANCE ANIMATIONS
    ============================================ */
 .animate-fade-up {
