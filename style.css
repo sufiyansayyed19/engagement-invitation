@@ -1,0 +1,1251 @@
+/* ============================================
+   CSS RESET & BASE
+   ============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-bg: #0d0605;
+    --color-cream: #fdf6ee;
+    --color-gold: #d4a853;
+    --color-gold-light: #e8c97a;
+    --color-gold-dark: #a67c2e;
+    --color-rose: #c9908e;
+    --color-rose-light: #e8bfbd;
+    --color-blush: #f5e0d8;
+    --color-white: #ffffff;
+    --color-text-dark: #2e1a10;
+    --color-text-arch: #3a2218;
+
+    --font-display: 'Great Vibes', cursive;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Poppins', sans-serif;
+    --font-arabic: 'Amiri', serif;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-cream);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ============================================
+   CURTAIN ANIMATION — image-based
+   ============================================ */
+.curtain-container {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    overflow: hidden;
+    transition: visibility 0s 1.8s;
+}
+
+.curtain-container.opened {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.curtain {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.curtain-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.curtain-left {
+    transform-origin: left center;
+}
+
+.curtain-right {
+    transform-origin: right center;
+}
+
+/* Mirror the right curtain */
+.curtain-right .curtain-img {
+    transform: scaleX(-1);
+}
+
+/* Opening animation */
+.curtain-container.opened .curtain-left {
+    transform: translateX(-100%);
+}
+
+.curtain-container.opened .curtain-right {
+    transform: translateX(100%);
+}
+/* Horizontal golden belt across curtains */
+.curtain-belt {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 40px;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: linear-gradient(to bottom,
+        rgba(210, 175, 165, 0.85),
+        rgba(180, 135, 125, 0.9),
+        rgba(195, 155, 145, 0.95),
+        rgba(175, 130, 120, 0.9),
+        rgba(210, 175, 165, 0.85));
+    box-shadow:
+        0 -1px 4px rgba(0, 0, 0, 0.15),
+        0 1px 4px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    transition: opacity 0.6s ease;
+}
+
+.curtain-container.opened .curtain-belt {
+    opacity: 0;
+}
+
+/* Golden bow tie in the center */
+.curtain-tie {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 102;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+}
+
+.curtain-container.opened .curtain-tie {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2) rotate(30deg);
+    pointer-events: none;
+}
+
+/* Circular medallion frame */
+.tie-circle {
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%,
+        rgba(245, 225, 220, 0.95),
+        rgba(235, 210, 205, 0.9) 50%,
+        rgba(225, 195, 188, 0.85));
+    border: 2.5px solid rgba(195, 155, 145, 0.8);
+    box-shadow:
+        0 0 15px rgba(195, 155, 145, 0.4),
+        0 0 30px rgba(195, 155, 145, 0.15),
+        inset 0 0 12px rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: circlePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes circlePulse {
+    0%, 100% {
+        box-shadow:
+            0 0 15px rgba(195, 155, 145, 0.4),
+            0 0 30px rgba(195, 155, 145, 0.15),
+            inset 0 0 12px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 25px rgba(195, 155, 145, 0.6),
+            0 0 50px rgba(195, 155, 145, 0.25),
+            inset 0 0 18px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.tie-img {
+    width: 135px;
+    height: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+}
+
+.tie-text {
+    margin-top: 14px;
+    color: var(--color-gold-light);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    font-weight: 500;
+    animation: tieTextFade 2.5s ease-in-out infinite;
+}
+
+@keyframes tieTextFade {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ============================================
+   PETAL BURST CANVAS
+   ============================================ */
+#petalCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#petalCanvas.active {
+    opacity: 1;
+}
+
+/* ============================================
+   SPARKLE CANVAS
+   ============================================ */
+#sparkleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+/* Background — CSS background-image for guaranteed full coverage */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+        linear-gradient(to bottom,
+            rgba(13, 6, 5, 0.0) 0%,
+            rgba(13, 6, 5, 0.0) 60%,
+            rgba(13, 6, 5, 0.15) 80%,
+            rgba(13, 6, 5, 0.55) 100%),
+        url('image2.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+/* ============================================
+   HERO CONTENT — positioned so Bismillah/Aayat
+   sit inside the upper scalloped arch curve
+   ============================================ */
+.hero-content {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 280px;
+}
+
+/* ============================================
+   BISMILLAH — small calligraphy, sits below
+   the scalloped arch top
+   ============================================ */
+.hero-bismillah {
+    margin-bottom: 0.25rem;
+    line-height: 0;
+}
+
+.bismillah-img {
+    display: inline-block;
+    width: 90px;
+    height: auto;
+    filter: sepia(1) saturate(2.5) brightness(0.35) hue-rotate(-15deg);
+    opacity: 0.85;
+}
+
+/* ============================================
+   AAYAT — Quranic verse below Bismillah
+   ============================================ */
+.hero-aayat {
+    margin-bottom: 0.6rem;
+    line-height: 0;
+}
+
+.aayat-img {
+    display: inline-block;
+    width: 100px;
+    height: auto;
+    filter: sepia(1) saturate(2.5) brightness(0.35) hue-rotate(-15deg);
+    opacity: 0.8;
+}
+
+/* ============================================
+   ORNAMENTAL DIVIDER
+   ============================================ */
+.ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.ornament-line {
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.ornament-diamond {
+    font-size: 0.4rem;
+    color: var(--color-gold);
+    text-shadow: 0 0 8px rgba(212, 168, 83, 0.5);
+    animation: diamondPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes diamondPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.4) rotate(180deg);
+    }
+}
+
+/* ============================================
+   COUPLE NAMES — with proper spacing
+   ============================================ */
+.hero-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+
+/* "Sayyed" label — BIGGER, DARKER, readable */
+.name-label {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dark);
+    opacity: 0.85;
+    margin-bottom: 0.2rem;
+    margin-top: 6px;
+}
+
+/* Main name — Nashra / Sufiyan */
+.name-main {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: var(--color-text-dark);
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Father name — Idris / Kamaluddin — spaced away from main name */
+.name-full {
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dark);
+    opacity: 0.65;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* "&" ampersand between names */
+.name-ampersand {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-gold);
+    line-height: 1;
+    margin: 0.25rem 0;
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.3);
+    animation: ampersandGlow 3s ease-in-out infinite;
+}
+
+@keyframes ampersandGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(212, 168, 83, 0.15);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(212, 168, 83, 0.5), 0 0 40px rgba(212, 168, 83, 0.2);
+    }
+}
+
+/* ============================================
+   SUBTITLE — "Engagement Ceremony" — bigger
+   ============================================ */
+.hero-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.hero-subtitle p {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-text-dark);
+    opacity: 0.8;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+.subtitle-line-left,
+.subtitle-line-right {
+    width: 22px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-dark), transparent);
+}
+
+/* ============================================
+   DATE CARD — glassmorphism, bigger text
+   ============================================ */
+.hero-date-card {
+    margin-bottom: 0.7rem;
+    width: 100%;
+}
+
+.date-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(212, 168, 83, 0.35);
+    border-radius: 6px;
+    background: rgba(253, 246, 238, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.date-card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.08), transparent, rgba(212, 168, 83, 0.05));
+    pointer-events: none;
+}
+
+.date-card-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+}
+
+.date-card-main {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.date-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.date-day {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1;
+}
+
+.date-month {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    opacity: 0.75;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.date-year {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1;
+}
+
+.date-time {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: var(--color-gold-dark);
+    letter-spacing: 0.08em;
+}
+
+.date-divider {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+}
+
+/* ============================================
+   VENUE — flows naturally inside hero-content
+   ============================================ */
+.hero-venue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin-top: 0.3rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(212, 168, 83, 0.35);
+    width: 100%;
+}
+
+.venue-icon {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+    animation: venuePin 2s ease-in-out infinite;
+}
+
+@keyframes venuePin {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.venue-name {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-cream);
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.venue-address {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: var(--color-cream);
+    opacity: 0.85;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   CORNER DECORATIONS
+   ============================================ */
+.corner-decor {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 6;
+    opacity: 0.3;
+}
+
+.corner-decor::before,
+.corner-decor::after {
+    content: '';
+    position: absolute;
+    background: var(--color-gold);
+}
+
+.corner-decor::before {
+    width: 18px;
+    height: 1px;
+}
+
+.corner-decor::after {
+    width: 1px;
+    height: 18px;
+}
+
+.corner-tl {
+    top: 12px;
+    left: 12px;
+}
+
+.corner-tl::before {
+    top: 0;
+    left: 0;
+}
+
+.corner-tl::after {
+    top: 0;
+    left: 0;
+}
+
+.corner-tr {
+    top: 12px;
+    right: 12px;
+}
+
+.corner-tr::before {
+    top: 0;
+    right: 0;
+}
+
+.corner-tr::after {
+    top: 0;
+    right: 0;
+}
+
+.corner-bl {
+    bottom: 12px;
+    left: 12px;
+}
+
+.corner-bl::before {
+    bottom: 0;
+    left: 0;
+}
+
+.corner-bl::after {
+    bottom: 0;
+    left: 0;
+}
+
+.corner-br {
+    bottom: 12px;
+    right: 12px;
+}
+
+.corner-br::before {
+    bottom: 0;
+    right: 0;
+}
+
+.corner-br::after {
+    bottom: 0;
+    right: 0;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+.scroll-indicator {
+    position: absolute;
+    bottom: 0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    z-index: 6;
+}
+
+.scroll-indicator span {
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold-light);
+    opacity: 0.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-line {
+    width: 1px;
+    height: 18px;
+    background: linear-gradient(to bottom, var(--color-gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scaleY(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scaleY(1.3);
+    }
+}
+
+/* ============================================
+   COUNTDOWN SECTION
+   ============================================ */
+.countdown-section {
+    position: relative;
+    padding: 3rem 1.5rem;
+    background: linear-gradient(
+        135deg,
+        #1a0e0d 0%,
+        #2a1614 30%,
+        #1f1210 60%,
+        #150c0b 100%
+    );
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Subtle texture overlay */
+.countdown-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(212, 168, 83, 0.06) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.countdown-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+/* Ornamental dividers (reuse hero's style) */
+.countdown-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+}
+
+.countdown-ornament .ornament-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.countdown-ornament .ornament-diamond {
+    font-size: 0.4rem;
+    color: var(--color-gold);
+    text-shadow: 0 0 8px rgba(212, 168, 83, 0.5);
+}
+
+.countdown-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-cream);
+    margin-bottom: 0.2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-date-label {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* Timer boxes */
+.countdown-boxes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.countdown-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+    border-radius: 12px;
+    padding: 0.8rem 0.6rem;
+    min-width: 62px;
+    backdrop-filter: blur(6px);
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: border-color 0.3s ease;
+}
+
+.countdown-box:hover {
+    border-color: rgba(212, 168, 83, 0.5);
+}
+
+.countdown-number {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-cream);
+    line-height: 1;
+    text-shadow: 0 0 15px rgba(212, 168, 83, 0.2);
+}
+
+.countdown-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin-top: 0.4rem;
+    opacity: 0.8;
+}
+
+.countdown-separator {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--color-gold);
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 1rem;
+    animation: separatorPulse 1s ease-in-out infinite;
+}
+
+@keyframes separatorPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.15; }
+}
+
+/* Number flip animation */
+.countdown-number.flip {
+    animation: numberFlip 0.3s ease-out;
+}
+
+@keyframes numberFlip {
+    0% { transform: scaleY(0.3); opacity: 0.3; }
+    50% { transform: scaleY(1.1); }
+    100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ============================================
+   VENUE MAP SECTION
+   ============================================ */
+.venue-section {
+    position: relative;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(
+        135deg,
+        #fbf1ed 0%,
+        #f5e6de 50%,
+        #fbf1ed 100%
+    );
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3), 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    text-align: center;
+}
+
+.venue-inner {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.venue-section-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-text-dark);
+    margin-bottom: 0.4rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.venue-section-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-gold-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+}
+
+.venue-section-address {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--color-text-dark);
+    opacity: 0.85;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.2rem;
+}
+
+/* Map container */
+.map-container {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 168, 83, 0.4);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.2rem;
+}
+
+.map-container iframe {
+    display: block;
+    width: 100%;
+    height: 250px;
+}
+
+/* Directions button */
+.directions-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.8rem;
+    border: none;
+    border-radius: 50px;
+    color: var(--color-cream);
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+    box-shadow: 0 4px 15px rgba(212, 168, 83, 0.4);
+    transition: all 0.3s ease;
+    margin-bottom: 0.8rem;
+}
+
+.directions-btn:hover {
+    box-shadow: 0 6px 20px rgba(212, 168, 83, 0.6);
+    transform: translateY(-2px);
+}
+
+.directions-icon {
+    font-size: 1rem;
+}
+
+/* Specific ornament styling for light venue background */
+.venue-section .ornament-line {
+    background: linear-gradient(90deg, transparent, var(--color-gold-dark), transparent);
+}
+
+.venue-section .ornament-diamond {
+    color: var(--color-gold-dark);
+    text-shadow: none;
+}
+
+/* ============================================
+   BLESSING SECTION
+   ============================================ */
+.blessing-section {
+    position: relative;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(
+        135deg,
+        #1a0e0d 0%,
+        #2a1614 30%,
+        #1f1210 60%,
+        #150c0b 100%
+    );
+    text-align: center;
+}
+
+.blessing-inner {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.blessing-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-cream);
+    margin-bottom: 0.4rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.blessing-subtitle {
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-cream);
+    opacity: 0.6;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+/* Blessing Button */
+.blessing-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+    border: none;
+    border-radius: 50px;
+    color: #1a0e0d;
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.3);
+    margin-bottom: 1rem;
+    animation: btnGlow 3s ease-in-out infinite;
+}
+
+@keyframes btnGlow {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(212, 168, 83, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(212, 168, 83, 0.5), 0 0 40px rgba(212, 168, 83, 0.15);
+    }
+}
+
+.blessing-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(212, 168, 83, 0.5);
+}
+
+.blessing-btn:active {
+    transform: scale(0.96);
+}
+
+.blessing-btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Toast Notification */
+.blessing-toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, rgba(42, 22, 20, 0.95), rgba(30, 15, 13, 0.98));
+    border: 1px solid rgba(212, 168, 83, 0.4);
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 168, 83, 0.1);
+    transition: bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 340px;
+    width: 90%;
+}
+
+.blessing-toast.show {
+    bottom: 40px;
+}
+
+.toast-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-cream);
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* ============================================
+   ENTRANCE ANIMATIONS
+   ============================================ */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.animate-fade-down {
+    opacity: 0;
+    transform: translateY(-15px);
+}
+
+body.animations-active .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+}
+
+body.animations-active .animate-fade-down {
+    animation: fadeDown 0.8s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+
+.delay-2 {
+    animation-delay: 0.7s;
+}
+
+.delay-3 {
+    animation-delay: 1.1s;
+}
+
+.delay-4 {
+    animation-delay: 1.5s;
+}
+
+.delay-5 {
+    animation-delay: 1.9s;
+}
+
+.delay-6 {
+    animation-delay: 2.4s;
+}
+
+/* ============================================
+   RESPONSIVE — Tablet
+   ============================================ */
+@media (min-width: 768px) {
+    .hero-content {
+        max-width: 420px;
+        margin-top: 15vh;
+    }
+
+    .bismillah-img {
+        width: 130px;
+    }
+
+    .aayat-img {
+        width: 140px;
+    }
+
+    .name-main {
+        font-size: 3.5rem;
+    }
+
+    .name-label {
+        font-size: 1rem;
+    }
+
+    .name-full {
+        font-size: 0.95rem;
+    }
+
+    .name-ampersand {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle p {
+        font-size: 1.1rem;
+    }
+
+    .date-day,
+    .date-year {
+        font-size: 2rem;
+    }
+
+    .venue-name {
+        font-size: 1.2rem;
+    }
+
+    .venue-address {
+        font-size: 0.8rem;
+    }
+
+    .ornament-line {
+        width: 45px;
+    }
+}
+
+/* Very small phones */
+@media (max-height: 680px) {
+    .hero-content {
+        margin-top: 12vh;
+    }
+
+    .bismillah-img {
+        width: 70px;
+    }
+
+    .aayat-img {
+        width: 80px;
+    }
+
+    .name-main {
+        font-size: 2rem;
+    }
+
+    .name-label {
+        font-size: 0.7rem;
+    }
+
+    .name-ampersand {
+        font-size: 1rem;
+    }
+
+    .date-day,
+    .date-year {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nashra & Sufiyan - Engagement Invitation</title>
+    <meta name="description"
+        content="You are cordially invited to celebrate the engagement of Nashra & Sufiyan - 2nd August 2026">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Poppins:wght@200;300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ========== CURTAIN OVERLAY ========== -->
+    <div class="curtain-container" id="curtainOverlay">
+        <div class="curtain curtain-left">
+            <img src="leftCurtain.png" alt="" class="curtain-img">
+        </div>
+        <div class="curtain curtain-right">
+            <img src="leftCurtain.png" alt="" class="curtain-img">
+        </div>
+        <!-- Horizontal golden belt band -->
+        <div class="curtain-belt"></div>
+
+        <!-- Golden bow tie in circle — tap to open -->
+        <div class="curtain-tie" id="openRibbon">
+            <div class="tie-circle">
+                <img src="newBow.png" alt="Tap to open" class="tie-img">
+            </div>
+            <!-- <p class="tie-text">Tap to Open</p> -->
+        </div>
+    </div>
+
+    <!-- ========== FLOWER PETAL BURST (Canvas) ========== -->
+    <canvas id="petalCanvas"></canvas>
+
+    <!-- ========== SPARKLE PARTICLES (Canvas) ========== -->
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="hero">
+
+        <!-- Background Image -->
+        <div class="hero-bg"></div>
+
+        <!-- Hero Content — inside the arch -->
+        <div class="hero-content">
+
+            <!-- Bismillah Calligraphy -->
+            <div class="hero-bismillah animate-fade-down">
+                <img src="Bismillah.png" alt="Bismillah ir-Rahman ir-Raheem" class="bismillah-img" width="100">
+            </div>
+
+            <!-- Aayat / Quranic Verse -->
+            <div class="hero-aayat animate-fade-down delay-1">
+                <img src="Aayat-removebg-preview.png" alt="And We Created You In Pairs - Quran 78:8" class="aayat-img"
+                    width="110">
+            </div>
+
+            <!-- Ornamental Divider -->
+            <div class="ornament-divider animate-fade-up delay-2">
+                <span class="ornament-line"></span>
+                <span class="ornament-diamond">✦</span>
+                <span class="ornament-line"></span>
+            </div>
+
+            <!-- Couple Names -->
+            <div class="hero-names animate-fade-up delay-2">
+                <p class="name-label">Sayyed</p>
+                <h1 class="name-main name-bride-main">Nashra</h1>
+                <p class="name-full">Idris</p>
+
+                <span class="name-ampersand">&</span>
+
+                <p class="name-label">Sayyed</p>
+                <h1 class="name-main name-groom-main">Sufiyan</h1>
+                <p class="name-full">Kamaluddin</p>
+            </div>
+
+            <!-- Subtitle -->
+            <div class="hero-subtitle animate-fade-up delay-3">
+                <div class="subtitle-line-left"></div>
+                <p>Jawab Ceremony</p>
+                <div class="subtitle-line-right"></div>
+            </div>
+
+            <!-- Date & Time Card -->
+            <div class="hero-date-card animate-fade-up delay-4">
+                <div class="date-card-inner">
+                    <span class="date-card-label">Save the Date</span>
+                    <div class="date-card-main">
+                        <div class="date-part">
+                            <span class="date-day">02</span>
+                            <span class="date-month">August</span>
+                        </div>
+                        <div class="date-divider"></div>
+                        <div class="date-part">
+                            <span class="date-year">2026</span>
+                            <span class="date-time">8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venue -->
+            <div class="hero-venue animate-fade-up delay-5">
+                <span class="venue-icon">📍</span>
+                <p class="venue-name">Taj Garden Dhaba</p>
+                <p class="venue-address">Nashik Highway, Gorsai Road<br>Savanda Village, Bhiwandi</p>
+            </div>
+
+        </div>
+
+        <!-- Corner Decorations -->
+        <div class="corner-decor corner-tl"></div>
+        <div class="corner-decor corner-tr"></div>
+        <div class="corner-decor corner-bl"></div>
+        <div class="corner-decor corner-br"></div>
+
+    </section>
+
+    <!-- ========== COUNTDOWN SECTION ========== -->
+    <section class="countdown-section" id="countdown">
+        <div class="countdown-inner">
+            <!-- Ornamental top -->
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+
+            <h2 class="countdown-title">Counting Down To</h2>
+            <p class="countdown-date-label">2nd August, 2026</p>
+
+            <div class="countdown-boxes" id="countdownBoxes">
+                <div class="countdown-box">
+                    <span class="countdown-number" id="cdDays">000</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="cdHours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="cdMinutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="cdSeconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+
+            <!-- Ornamental bottom -->
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== VENUE MAP SECTION ========== -->
+    <section class="venue-section" id="venue">
+        <div class="venue-inner">
+            <!-- Ornamental top -->
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+
+            <h2 class="venue-section-title">Venue</h2>
+            <p class="venue-section-name">📍 Taj Garden Dhaba</p>
+            <p class="venue-section-address">Nashik Highway, Gorsai Road<br>Savanda Village, Bhiwandi</p>
+
+            <!-- Embedded Map -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.314111629013!2d73.0860489!3d19.3240686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7bd0e10bf8feb%3A0xfb4305175ae1f4d!2sTaj%20Garden%20dhaba!5e1!3m2!1sen!2sin!4v1785139231271!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="250" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+
+            <!-- Directions Button -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Taj+Garden+dhaba+Bhiwandi" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="directions-btn">
+                <span class="directions-icon">🧭</span>
+                Get Directions
+            </a>
+
+            <!-- Ornamental bottom -->
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SEND YOUR BLESSING SECTION ========== -->
+    <section class="blessing-section" id="blessing">
+        <div class="blessing-inner">
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+
+            <h2 class="blessing-title">Send Your Blessing</h2>
+            <p class="blessing-subtitle">May Allah bless this union with love, mercy & happiness</p>
+
+            <button class="blessing-btn" id="blessingBtn">
+                <span class="blessing-btn-icon">🤲</span>
+                <span>Send Blessing</span>
+            </button>
+
+            <div class="countdown-ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-diamond">◆</span>
+                <div class="ornament-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification -->
+    <div class="blessing-toast" id="blessingToast">
+        <span class="toast-icon">✨</span>
+        <p class="toast-message" id="toastMessage"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
