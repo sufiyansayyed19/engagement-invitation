@@ -256,6 +256,13 @@ function launchPetalBurst() {
 // ============================================
 // INITIALIZATION
 // ============================================
+
+// Force scroll to top on refresh
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // Fix for jumping 100vh on mobile browsers (due to address bar shrinking)
