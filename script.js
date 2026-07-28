@@ -254,6 +254,92 @@ function launchPetalBurst() {
 }
 
 // ============================================
+// FIREWORKS BURST (On Click)
+// ============================================
+function initFireworks() {
+    const canvas = document.getElementById('fireworksCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let particles = [];
+    
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    
+    // Firework colors (gold, rose, light yellow, white)
+    const colors = ['#d4a853', '#f0c4c8', '#ffe5b4', '#ffffff', '#e8b4b8'];
+    
+    function createExplosion(x, y) {
+        const particleCount = 40;
+        for (let i = 0; i < particleCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 5 + 2;
+            particles.push({
+                x: x,
+                y: y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                size: Math.random() * 2.5 + 1,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                opacity: 1,
+                gravity: 0.05,
+                friction: 0.96,
+                decay: Math.random() * 0.02 + 0.015
+            });
+        }
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            
+            p.vx *= p.friction;
+            p.vy *= p.friction;
+            p.vy += p.gravity;
+            
+            p.x += p.vx;
+            p.y += p.vy;
+            p.opacity -= p.decay;
+            
+            if (p.opacity <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${hexToRgb(p.color)}, ${p.opacity})`;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? 
+            `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+            '255, 255, 255';
+    }
+    
+    // Trigger on click anywhere
+    document.addEventListener('click', (e) => {
+        createExplosion(e.clientX, e.clientY);
+    });
+    
+    // Start animation loop
+    animate();
+}
+
+// ============================================
 // INITIALIZATION
 // ============================================
 
@@ -281,6 +367,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('orientationchange', () => {
         setTimeout(fixMobileHeight, 300);
     });
+
+    // Initialize fireworks system
+    initFireworks();
 
     // Initialize sparkle particle system
     new SparkleParticleSystem('sparkleCanvas');
