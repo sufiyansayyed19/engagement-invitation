@@ -651,13 +651,13 @@ body {
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
-        bottom: 30px;
+        transform: translate(-50%, 0);
     }
     40% {
-        bottom: 40px;
+        transform: translate(-50%, -10px);
     }
     60% {
-        bottom: 35px;
+        transform: translate(-50%, -5px);
     }
 }
 
