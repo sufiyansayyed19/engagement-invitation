@@ -132,7 +132,7 @@ class SparkleParticleSystem {
 function launchPetalBurst() {
     const canvas = document.getElementById('petalCanvas');
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -260,19 +260,19 @@ function initFireworks() {
     const canvas = document.getElementById('fireworksCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
+
     let particles = [];
-    
+
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
     resize();
     window.addEventListener('resize', resize);
-    
+
     // Firework colors (gold, rose, light yellow, white)
     const colors = ['#d4a853', '#f0c4c8', '#ffe5b4', '#ffffff', '#e8b4b8'];
-    
+
     function createExplosion(x, y) {
         const particleCount = 40;
         for (let i = 0; i < particleCount; i++) {
@@ -292,26 +292,26 @@ function initFireworks() {
             });
         }
     }
-    
+
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         for (let i = particles.length - 1; i >= 0; i--) {
             const p = particles[i];
-            
+
             p.vx *= p.friction;
             p.vy *= p.friction;
             p.vy += p.gravity;
-            
+
             p.x += p.vx;
             p.y += p.vy;
             p.opacity -= p.decay;
-            
+
             if (p.opacity <= 0) {
                 particles.splice(i, 1);
                 continue;
             }
-            
+
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${hexToRgb(p.color)}, ${p.opacity})`;
@@ -319,22 +319,22 @@ function initFireworks() {
             ctx.shadowColor = p.color;
             ctx.fill();
         }
-        
+
         requestAnimationFrame(animate);
     }
-    
+
     function hexToRgb(hex) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? 
-            `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+        return result ?
+            `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` :
             '255, 255, 255';
     }
-    
+
     // Trigger on click anywhere
     document.addEventListener('click', (e) => {
         createExplosion(e.clientX, e.clientY);
     });
-    
+
     // Start animation loop
     animate();
 }
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const vh = window.innerHeight;
         const hero = document.getElementById('hero');
         const curtain = document.getElementById('curtainOverlay');
-        
+
         // Lock the height exactly in pixels so it doesn't recalculate on scroll
         if (hero) hero.style.height = `${vh}px`;
         if (curtain) curtain.style.height = `${vh}px`;
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openRibbon.addEventListener('click', () => {
             // Open curtains
             curtainOverlay.classList.add('opened');
-            
+
             // Trigger flower petal burst
             launchPetalBurst();
 
@@ -474,16 +474,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // BLESSING BUTTON — shows random Islamic dua
     // ============================================
     const blessings = [
-        { icon: '🤲', text: 'Barakallahu Feekuma — May Allah bless you both!' },
-        { icon: '💐', text: 'Barakallahu laka, wa baraka alaika, wa jama\'a bainakuma fi khair' },
-        { icon: '🌙', text: 'May Allah fill your lives with happiness, barakah & sabr. Ameen!' },
-        { icon: '✨', text: 'May this bond be a source of mercy & tranquility. Ameen!' },
-        { icon: '🕊️', text: 'May Allah make you the coolness of each other\'s eyes. Ameen!' },
-        { icon: '💍', text: 'Mabrook! May your engagement be blessed with love & iman!' },
-        { icon: '🌺', text: 'May Allah grant you both a righteous & beautiful future together. Ameen!' },
-        { icon: '🤍', text: 'JazakAllahu Khairan — May this engagement be full of barakah!' },
-        { icon: '🌟', text: 'May your future together be a journey towards Jannah. Ameen!' },
-        { icon: '🕌', text: 'May Allah keep your hearts united in His remembrance. Ameen!' },
+        {
+            icon: '🤲',
+            text: 'Barakallahu lakuma wa baraka alaykuma wa jama\'a baynakuma fi khair.'
+        },
+        {
+            icon: '💍',
+            text: 'Mabrook on your engagement! May Allah bless this beautiful beginning. Ameen!'
+        },
+        {
+            icon: '🌙',
+            text: 'May Allah guide your hearts, strengthen your faith, and make this journey easy. Ameen!'
+        },
+        {
+            icon: '✨',
+            text: 'May this engagement be filled with love, barakah, patience, and endless happiness. Ameen!'
+        },
+        {
+            icon: '🤍',
+            text: 'May Allah write what is best for both of you and unite you in goodness. Ameen!'
+        },
+        {
+            icon: '🕊️',
+            text: 'May Allah make you the coolness of each other\'s eyes and grant you lasting peace. Ameen!'
+        },
+        {
+            icon: '🌸',
+            text: 'May Allah bless your families and fill this occasion with joy and barakah. Ameen!'
+        },
+        {
+            icon: '🌹',
+            text: 'May your hearts grow closer through faith, kindness, and sincere love. Ameen!'
+        },
+        {
+            icon: '🕌',
+            text: 'May Allah keep your hearts united in His remembrance and guide every step of your future. Ameen!'
+        },
+        {
+            icon: '🌺',
+            text: 'May Allah bless your future Nikah and grant you a home filled with sakinah, mawaddah, and rahmah. Ameen!'
+        },
+        {
+            icon: '📖',
+            text: 'May Allah grant you wisdom, understanding, and countless blessings in every stage of life. Ameen!'
+        },
+        {
+            icon: '🌟',
+            text: 'May your journey together always lead you closer to Allah and, by His mercy, to Jannah. Ameen!'
+        }
     ];
 
     const blessingBtn = document.getElementById('blessingBtn');
