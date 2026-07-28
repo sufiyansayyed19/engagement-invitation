@@ -1226,12 +1226,18 @@ body {
 
 .footer-credit .contact-text {
     font-family: var(--font-sans);
-    font-size: 0.55rem;
-    color: rgba(253, 246, 237, 0.4);
+    font-size: 0.6rem;
+    color: rgba(253, 246, 237, 0.5);
     letter-spacing: 1.5px;
-    text-transform: lowercase;
-    display: block;
-    margin-top: -5px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 4px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-credit .contact-text:hover {
+    color: var(--color-gold);
 }
 
 /* ============================================
